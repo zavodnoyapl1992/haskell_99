@@ -1,6 +1,6 @@
 myButLast :: [a] -> a
 
 myButLast [] =  error "Empty list"
-myButLast (a:[]) = error "Too few elements"
+myButLast (_:[]) = error "Too few elements"
 myButLast (a:_:[]) = a
-myButLast (a:ax) = myButLast ax
+myButLast (_:ax) = myButLast ax

@@ -74,4 +74,4 @@ encodeModified :: Eq a => [a] -> [CountNum a]
 
 encodeModified = map toType . pack where
    toType [x] = Single x
-   toType xx@(x:xs) = Multiple (length xx) x
+   toType xs@(x:_) = Multiple (length xs) x

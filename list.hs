@@ -29,7 +29,7 @@ myLength (_:ax) = 1 + myLength ax
 myReverse :: [a] -> [a]
 
 myReverse [] = []
-myReverse (a:ax) = myReverse ax ++ [a]
+myReverse (a:ax) = a:(myReverse ax)
 
 
 isPalindrome :: Eq a => [a] -> Bool
@@ -75,3 +75,11 @@ encodeModified :: Eq a => [a] -> [CountNum a]
 encodeModified = map toType . pack where
    toType [x] = Single x
    toType xs@(x:_) = Multiple (length xs) x
+
+
+decodeModified :: Eq a => [CountNum a] -> [a]
+
+decodeModified [] = []
+decodeModified ((Single a):xs)= a:(decodeModified xs)
+decodeModified ((Multiple 1 a):xs)= a:(decodeModified xs)
+decodeModified ((Multiple len a):xs) = a:(decodeModified ((Multiple (len - 1) a):xs))

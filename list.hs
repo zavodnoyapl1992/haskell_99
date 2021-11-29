@@ -83,3 +83,30 @@ decodeModified [] = []
 decodeModified ((Single a):xs)= a:(decodeModified xs)
 decodeModified ((Multiple 1 a):xs)= a:(decodeModified xs)
 decodeModified ((Multiple len a):xs) = a:(decodeModified ((Multiple (len - 1) a):xs))
+
+
+encodeDirect :: Eq a => [a] -> [CountNum a]
+
+encodeDirect [] = []
+encodeDirect (x:xs) = encodeD xs x 1 where
+   encodeD [] prev count = [toType prev count]
+   encodeD (x:xs) prev count | x == prev = encodeD xs prev (count + 1)
+                             | otherwise = (toType prev count) : encodeD xs x 1
+   toType a 1 = Single a
+   toType a num = Multiple num a
+
+
+
+dupli :: Eq a => [a] -> [a]
+
+dupli [] = []
+dupli (x:xs) = x:x:dupli xs
+
+
+repli :: Eq a => [a] -> Integer -> [a]
+
+repli [] _ = []
+repli xs c = repli1 xs c c where
+   repli1 [] _ _ = []
+   repli1 (x:xs) 0 n2 = repli1 xs n2 n2
+   repli1 xs@(x:_) n1 n2 = x:(repli1 xs (n1 - 1) n2)

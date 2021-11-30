@@ -125,3 +125,15 @@ split :: [a] -> Integer -> ([a], [a])
 split xs n1 = split1 xs n1 []
 split1 xs 0 fs = (reverse fs, xs)
 split1 (x:xs) c1 fs = split1 xs (c1 - 1) (x:fs)
+
+
+slice :: [a] -> Integer -> Integer -> [a]
+
+slice _ _ 0 = []
+slice xs 0 end = slice xs 1 end
+slice (x:xs) 1 1 = [x]
+slice (x:xs) 1 en = x:(slice xs 1 (en-1))
+slice (x:xs) st en | st > en = error "End less than start"
+                   | otherwise = slice xs (st - 1) (en - 1)
+
+

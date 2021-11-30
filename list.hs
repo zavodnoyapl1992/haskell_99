@@ -110,3 +110,18 @@ repli xs c = repli1 xs c c where
    repli1 [] _ _ = []
    repli1 (x:xs) 0 n2 = repli1 xs n2 n2
    repli1 xs@(x:_) n1 n2 = x:(repli1 xs (n1 - 1) n2)
+
+
+dropEvery :: [a] -> Integer -> [a]
+
+dropEvery xs n1 = dropEvery1 xs n1 n1 where
+    dropEvery1 [] _ _ = []
+    dropEvery1 (x:xs) i 1 = dropEvery1 xs i i
+    dropEvery1 (x:xs) i i1 =  x:(dropEvery1 xs i (i1 - 1))
+
+
+split :: [a] -> Integer -> ([a], [a])
+
+split xs n1 = split1 xs n1 []
+split1 xs 0 fs = (reverse fs, xs)
+split1 (x:xs) c1 fs = split1 xs (c1 - 1) (x:fs)

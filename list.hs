@@ -141,3 +141,12 @@ rotate :: [a] -> Int -> [a]
 rotate xs1@(x:xs) 0 = xs1
 rotate xs1@(x:xs) n | n < 0 = rotate xs1 (length xs1 + n)
                     | otherwise = rotate (xs ++ [x]) (n - 1)
+
+
+removeAt :: Integer -> [a] -> (a, [a])
+
+removeAt = removeAt1 [] where
+    removeAt1 _ 0 xs = error "empty remove"
+    removeAt1 res 1 (x:xs) = (x, res ++ xs)
+    removeAt1 _ n [] = error "empty remove"
+    removeAt1 res n (x:xs) = removeAt1 (x:res) (n - 1) xs

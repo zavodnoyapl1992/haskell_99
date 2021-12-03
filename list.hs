@@ -136,4 +136,8 @@ slice (x:xs) 1 en = x:(slice xs 1 (en-1))
 slice (x:xs) st en | st > en = error "End less than start"
                    | otherwise = slice xs (st - 1) (en - 1)
 
+rotate :: [a] -> Int -> [a]
 
+rotate xs1@(x:xs) 0 = xs1
+rotate xs1@(x:xs) n | n < 0 = rotate xs1 (length xs1 + n)
+                    | otherwise = rotate (xs ++ [x]) (n - 1)

@@ -150,3 +150,10 @@ removeAt = removeAt1 [] where
     removeAt1 res 1 (x:xs) = (x, res ++ xs)
     removeAt1 _ n [] = error "empty remove"
     removeAt1 res n (x:xs) = removeAt1 (x:res) (n - 1) xs
+
+
+insertAt :: a -> [a] -> Int -> [a]
+
+insertAt a [] n = [a]
+insertAt a xs 1 = a:xs
+insertAt a (x:xs) n = x:(insertAt a xs (n -1))
